@@ -44,6 +44,8 @@
 # libs = c("igraph", "igraphdata", "GO.db", "GOstats", "ROCR", "ape", "car", "eigenmodel", "ergm", "fdrtool", "ggplot2", "huge", "kernlab", "lattice", "mixer", "network", "networkDynamic", "networkTomography", "ngspatial", "org.Sc.sgd.db", "sna", "vioplot") 
 # load_libs(libs)
 # ```
+# 
+# 3.    Abrir el .r de la tarea en: https://github.com/prbocca/na101_master/tree/master/homework_1_graphs
 
 # ## 1.c) Cargar Librerias
 # 
