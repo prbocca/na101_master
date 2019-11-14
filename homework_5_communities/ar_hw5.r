@@ -12,7 +12,7 @@
 #      File-> Open Notebook -> Github -> https://github.com/prbocca/na101_master -> homework_5_communities
 # 3.   Guardar el notebook en su Google Drive:
 #      File -> Save a Copy in Drive... 
-# 4.   Renombrar el archivo `"cedula ID"_AR_hw5_IR.ipynb`, por ejemplo *33484022_AR_hw54_IR.ipynb*
+# 4.   Renombrar el archivo `"cedula ID"_ar_hw5.ipynb`, por ejemplo *33484022_ar_hw5.ipynb*
 # 5.   Al final usted deberá descargar el notebook. Asegurarse que se están guardando las salidas de ejecución en el notebook: File -> Download .ipynb
 # 6.   Luego estos archivos deberán ser enviados a prbocca@fing.edu.uy 
 # 
