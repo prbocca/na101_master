@@ -232,10 +232,13 @@ score = function(g, type="-dist", sort = FALSE, scale=TRUE){
   #common neighbors
   if (type=="common neighbors"){
     A <- get.adjacency(g)
+    e = ego(g, 1, nodes= V(g))
     for(i in (1:(nv-1))){
-      ni <- neighborhood(g, order=1, nodes=i)
+      #ni <- neighborhood(g, order=1, nodes=i)
+      ni = e[i]
       j_v = (i+1):nv
-      nj <- neighborhood(g, 1, nodes=j_v)
+      #nj <- neighborhood(g, 1, nodes=j_v)
+      nj = e[j_v]
       nbhd.ij <- mapply(intersect, ni, nj, SIMPLIFY=FALSE)
       temp <- unlist(lapply(nbhd.ij, length)) - 2 * A[i, j_v]
       result = rbind(result, data.frame(score=temp,
@@ -266,10 +269,13 @@ score = function(g, type="-dist", sort = FALSE, scale=TRUE){
   # }
   if (type=="normalized common neighbors"){
     A <- get.adjacency(g)
+    e = ego(g, 1, nodes= V(g))
     for(i in (1:(nv-1))){
-      ni <- neighborhood(g, order=1, nodes=i)
+      #ni <- neighborhood(g, order=1, nodes=i)
+      ni = e[i]
       j_v = (i+1):nv
-      nj <- neighborhood(g, 1, nodes=j_v)
+      #nj <- neighborhood(g, 1, nodes=j_v)
+      nj = e[j_v]
       nbhd.ij <- mapply(intersect, ni, nj, SIMPLIFY=FALSE)
       nbhd.ij.union <- mapply(union, ni, nj, SIMPLIFY=FALSE)
       temp <- unlist(lapply(nbhd.ij, length)) - 2 * A[i, j_v]
@@ -285,9 +291,12 @@ score = function(g, type="-dist", sort = FALSE, scale=TRUE){
   
   #degree product
   if (type=="degree product"){
+    d = degree(g)
     for(i in (1:(nv-1))){
-      di = degree(g,v= i)
-      dj = degree(g, v= (i+1):nv)
+      #di = degree(g,v= i)
+      di = d[i]
+      #dj = degree(g, v= (i+1):nv)
+      dj = d[(i+1):nv]
       result = rbind(result, data.frame(score=di*dj, 
                                         edge=paste(i,"--",(i+1):nv, sep = ""), 
                                         from=rep(i,length(dj)),
@@ -318,9 +327,9 @@ evaluate_predictions = function(g, g_obs, types=c("1/dist",
   
   require(ROCR)
   
-  A_g <- get.adjacency(g)
+  A_g <- get.adjacency(g, sparse=F)
   A_g_v <- A_g[lower.tri(A_g)]
-  A_obs = get.adjacency(g_obs)
+  A_obs = get.adjacency(g_obs, sparse =F)
   A_obs_v <- A_obs[lower.tri(A_obs)]
   true_possibleedges_no_obs = A_g_v[A_obs_v==0]
   true_possibleedges_no_obs = factor(true_possibleedges_no_obs, levels = c(0,1)) #debe tener ceros y unos
@@ -355,7 +364,8 @@ evaluate_predictions = function(g, g_obs, types=c("1/dist",
     }
 
   }
-  result[,c("edge","from","to")] = s[,c("edge","from","to")]
+  #result[,c("edge","from","to")] = s[,c("edge","from","to")]
+  result[,c("edge","from","to")] = s[A_obs_v==0,c("edge","from","to")]
   
   
   if (plot_roc){
