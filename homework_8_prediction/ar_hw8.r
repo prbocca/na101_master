@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+
 # coding: utf-8
 
 # # Práctico 8 - Predecir información faltante en redes
@@ -24,7 +24,6 @@
 
 # In[ ]:
 
-
 # cargar librerias
 load_libs <- function(libraries = libs, install=TRUE){
   if (install){ # instalar librerias no instaladas
@@ -46,10 +45,10 @@ libs = c("ROCR", #evaluacion de problemas de clasificacion
 
 load_libs(libs)
 
+
 # ## 1.d) Descargar funciones auxiliares
 
 # In[ ]:
-
 
 #directorio donde se va a trabajar
 data_path = "/content/ar/hw8/"
@@ -62,13 +61,13 @@ list.files()
 # cargo funciones auxiliares
 source("https://raw.githubusercontent.com/prbocca/na101_master/master/homeworks_common.r")
 
+
 # # 2. Predicción de enlaces en `R`.
 # 
 # Seguir las Secciones 7.1 y 7.2 del libro [SANDR], ejecutando el código fuente incluido.
 # 
 
 # In[ ]:
-
 
 # Chapter 7 Network Topology Inference
 # 7.1 Introduction
@@ -92,8 +91,8 @@ for(i in (1:(nv-1))){
   ncn <- c(ncn, temp)
 }
 
-# In[ ]:
 
+# In[ ]:
 
 # In Fig. 7.2 we compare the scores s(i, j) for those vertex pairs that are not incident
 # to each other (i.e., ‘no edge’), and those that are (i.e., ‘edge’), using so-called violin
@@ -104,8 +103,8 @@ vioplot(ncn[Avec==0], ncn[Avec==1],
         names=c("No Edge", "Edge"))
 title(ylab="Number of Common Neighbors")
 
-# In[ ]:
 
+# In[ ]:
 
 # It is evident from this comparison that there is a decided tendency towards larger
 # scores when there is in fact an edge present. Viewing the calculation we have done
@@ -120,6 +119,7 @@ slot(perf, "y.values")
 roc.perf = performance(pred, measure = "tpr", x.measure = "fpr")
 plot(roc.perf, col="red")
 abline(a=0, b= 1)
+
 
 # $\def\ccalN{{\mathcal N}}$
 # 
@@ -147,7 +147,6 @@ abline(a=0, b= 1)
 # Descargar el grafo desde: https://github.com/prbocca/na101_master/raw/master/homework_8_prediction/g_malaria.graphml.
 
 # In[ ]:
-
 
 # descargar y cargar datos
 g_malaria = NA
@@ -181,7 +180,6 @@ plot(g_malaria, edge.color="gray", edge.width=1, edge.lty=1, edge.arrow.size=.5,
 # 
 
 # In[ ]:
-
 
 # descargar y cargar datos
 g_gcdirectores = NA
@@ -217,7 +215,6 @@ plot(g_gcdirectores, edge.color="gray", edge.width=1, edge.lty=1, edge.arrow.siz
 
 # In[ ]:
 
-
 # computo las aristas reales y las pongo en un vector (triangular inferior, mismo orden que score())
 A_malaria <- get.adjacency(g_malaria)
 A_malaria_v <- A_malaria[lower.tri(A_malaria)]
@@ -238,7 +235,7 @@ pred_possibleedges_no_obs = s_cn$score[A_malaria_obs_v==0] #vector prediccho sob
 # computo la performance
 pred_malaria <- prediction(pred_possibleedges_no_obs, true_possibleedges_no_obs)
 perf_malaria <- performance(pred_malaria, "auc")
-printf("El método de score saundo vecinos en cumún, tiene un AUC=%s", slot(perf_malaria, "y.values"))
+printf("El método de score usando vecinos en cumún, tiene un AUC=%s", slot(perf_malaria, "y.values"))
 # el valor de AUC es 0.9172444
 
 #plot de la curva ROC
@@ -246,6 +243,7 @@ roc_malaria = performance(pred_malaria, measure = "tpr", x.measure = "fpr")
 plot(roc_malaria, col="red")
 title("ROC para la red de Malaria y %20 de aristas no observadas")
 abline(a=0, b=1)
+
 
 # ## 3.d) Estudio exahustivo de capacidad predictiva
 # 
@@ -267,20 +265,19 @@ abline(a=0, b=1)
 
 # In[ ]:
 
-
-# defino los parametros del experimento
+# defino los parámetros del experimento
 
 # para cada grafo, sorteo un subgrafo observado, calculo todos los tipos de score, predigo aristas faltantes y evaluo la metrica
 p_v = c(0.01, 0.05, 0.10, 0.20, 0.50, 0.80) #las probabilidades de eliminacion de arista a evaluar
-n_sample = 10 #cantidad de sorteos de g_obs
+n_sample = 5 #cantidad de sorteos de g_obs
 types = c("1/dist","common neighbors", "degree product")
 metric="auc" 
 n_cores = 1 #la ejecución en COLAB solo permite 1 CPU
 
+
 # In[ ]:
 
-
-#realizo los calculos para el grafo aleatorio
+#realizo los cálculos para el grafo aleatorio
 
 # sorteo un grafo
 g_erdosrenyi = erdos.renyi.game(100,0.20)
@@ -300,10 +297,10 @@ ggplot(results_erdosrenyi$results_summary, aes(100*p, auc, colour = score)) +
   labs(title = "AUC para distintos scores y porcentaje de aristas no observadas", 
        subtitle = "grafo Erdos Renyi", x="% aristas no observadas", y="AUC")
 
+
 # In[ ]:
 
-
-#realizo los calculos para el grafo Barabasi-Albert
+#realizo los cálculos para el grafo Barabasi-Albert
 
 ##################################################################
 #                       TU CÓDIGO ACÁ                           
@@ -317,8 +314,7 @@ ggplot(results_erdosrenyi$results_summary, aes(100*p, auc, colour = score)) +
 
 # In[ ]:
 
-
-#realizo los calculos para el grafo g_malaria
+#realizo los cálculos para el grafo g_malaria
 
 ##################################################################
 #                       TU CÓDIGO ACÁ                           
@@ -331,8 +327,7 @@ ggplot(results_erdosrenyi$results_summary, aes(100*p, auc, colour = score)) +
 
 # In[ ]:
 
-
-#realizo los calculos para el grafo g_gcdirectores
+#realizo los cálculos para el grafo g_gcdirectores
 
 ##################################################################
 #                       TU CÓDIGO ACÁ                           
@@ -341,6 +336,7 @@ ggplot(results_erdosrenyi$results_summary, aes(100*p, auc, colour = score)) +
 #
 #
 ##################################################################
+
 
 # ## 3.e) Interpretar resultados de sección anterior
 # 
@@ -357,7 +353,6 @@ ggplot(results_erdosrenyi$results_summary, aes(100*p, auc, colour = score)) +
 # 
 
 # In[ ]:
-
 
 # Chapter 8 Modeling and Prediction for Processes on Network Graphs
 # 8.1 Introduction
@@ -393,7 +388,6 @@ plot(ppi.CC, vertex.size=5, vertex.label=NA)
 
 
 # In[ ]:
-
 
 # A simple, but often quite effective, method for producing local predictions is the
 # nearest-neighbor method. See Hastie, Tibshirani, and Friedman [71, Chap. 2.3.2],
@@ -442,8 +436,8 @@ nn.pred <- as.numeric(nn.ave > 0.5)
 mean(as.numeric(nn.pred != V(ppi.CC.gc)$ICSC))
 #[1] 0.2598425
 
-# In[ ]:
 
+# In[ ]:
 
 # La siguiente sección requiere previamente instalar algunos paquetes especiales
 
@@ -452,8 +446,8 @@ if (!requireNamespace("BiocManager", quietly = TRUE))
 BiocManager::install()
 BiocManager::install(c("GOstats", "GO.db", "org.Sc.sgd.db"))
 
-# In[ ]:
 
+# In[ ]:
 
 # Interestingly, we can push this illustration a bit further by taking advantage of the
 # evolving nature of biological databases like GO. In particular, the proteins annotated
@@ -472,8 +466,8 @@ library(org.Sc.sgd.db)
 # At the time of this writing, these annotations were last updated in September of
 # 2013, roughly six years after the data in ppi.CC were assembled.
 
-# In[ ]:
 
+# In[ ]:
 
 # We extract those proteins with the function ICSC—now subsumed under the
 # term intercellular signaling transduction (ICST), or GO label 003556—and keep
@@ -497,6 +491,7 @@ new.icsc
 # by comparing the value of their nearest-neighbor averages to a threshold of 0.5.
 nn.ave[V(ppi.CC.gc)$name %in% new.icsc]
 
+
 # # 5. Predicción de atributos de vértices en redes reales.
 # 
 # Por lo general, los vértices de las redes reales tiene atributos, los cuales pueden ser categóricos, escalares o reales.
@@ -511,7 +506,6 @@ nn.ave[V(ppi.CC.gc)$name %in% new.icsc]
 
 # In[ ]:
 
-
 # Cargar la red de Malaria
 g_malaria = read.graph(file="g_malaria.graphml", format= "graphml")
 summary(g_malaria)
@@ -524,7 +518,7 @@ summary(g_gcdirectores)
 # ## 5.b) Predecir atributos en la red de Malaria
 # 
 # Evaluar la precisión del método NNM, sobre una subred observada con el $\%80$ de los atributos de vértice `label` de la red de Malaria.
-# El atributo `label`, disponibles en la red, es un enumerado (variable categórica) y es representado en `igraph` como números. Por tal motivo, el promedio sobre los vecinos del método NNM se define como el enumerado de mayor frecuencia. 
+# El atributo `label`, disponible en la red, es un enumerado (variable categórica) y es representado en `igraph` como números. Por tal motivo, el promedio sobre los vecinos del método NNM se define como el enumerado de mayor frecuencia. 
 # Para medir la calidad de predicción del método usaremos la exactitud  (*accuracy* - fracción de predicciones correctas).
 # 
 # Se disponen de varias funciones auxiliares, incluyendo `nnm()` y `delete_vertex_attr_rand()`. 
@@ -534,7 +528,6 @@ summary(g_gcdirectores)
 # 
 
 # In[ ]:
-
 
 #creo una subred observada
 set.seed(42)
@@ -552,7 +545,7 @@ vertex_attr_pred = factor(vertex_attr_pred, levels=unique(vertex_attr(g_malaria,
 # computo la exactitud
 cm = as.matrix(table(pred=vertex_attr_pred, actual=vertex_attr_actual)) # create the confusion matrix
 accuracy = sum(diag(cm)) / sum(cm)
-printf("La exactitud de NNM para la red e Malaria es %s", accuracy) # [1] 0.7121212
+printf("La exactitud de NNM para la red de Malaria es %s", accuracy) # [1] 0.7121212
 
 # otra forma corta de hacerlo
 # comparo con funcion de prediccion que hace todo
@@ -563,13 +556,12 @@ printf("La exactitud de NNM para la red e Malaria es %s", accuracy) # [1] 0.7121
 # ## 5.c) Predecir atributos en la red de directores
 # 
 # En la red de relaciones entre directivos se conoce el género de los directivos, como un atributo binario de vértice llamado `gender`.
-# Dado que el atributo es binario se puede utilizar tanto la métrica de exactitud como $AUC$ visto anteriormente. Además el método NNM puede realizarse usando el promedio entre los vecinos (y no la frecuencia más alta).
+# Dado que el atributo es binario se puede utilizar tanto la métrica de exactitud como $AUC$ vista anteriormente. Además el método NNM puede realizarse usando el promedio entre los vecinos (y no la frecuencia más alta).
 # Repetir la parte anterior para esta red. 
 # ¿Qué se puede concluir sobre la homofilia en esta red?
 # 
 
 # In[ ]:
-
 
 ##################################################################
 #                       TU CÓDIGO ACÁ                           
@@ -585,7 +577,7 @@ printf("La exactitud de NNM para la red e Malaria es %s", accuracy) # [1] 0.7121
 # Realizar un estudio más exahustivo sobre la calidad predictiva del método NNM, variando el porcentaje de atributos `label` observados entre \%99 y \%20 para la red de Malaria.
 # Buscando eliminar casuística, repetir la prueba sorteando distintos grafos observados.
 # 
-# Es posible utilizar la función auxiliar cargada previamente  `summary_predictions_vertexattr(g, attr, n_sample, p, fun="mean", metric="auc", cores=1)`, que recibe un grafo `g`, crea un grafo observado para cada probabilidad de eliminación de arista del vector `p`, y prueba el métoodo NNM promediando con la función `fun` y para la métrica `acc`. Repite cada caso `n_sample` y promedia resultados.
+# Es posible utilizar la función auxiliar cargada previamente  `summary_predictions_vertexattr(g, attr, n_sample, p, fun="mean", metric="auc", cores=1)`, que recibe un grafo `g`, crea un grafo observado para cada probabilidad de eliminación de arista del vector `p`, y prueba el método NNM promediando con la función `fun` y para la métrica `acc`. Repite cada caso `n_sample` y promedia resultados.
 # 
 # Deben obtenerse resultados similares a los de la siguiente Figura: ![precisión del método NNM para predecir atributos de vértices, usando distintos porcentajes de atributos no observados](https://github.com/prbocca/na101_master/raw/master/homework_8_prediction/result_acc_p.png). Observar que en este caso, la capadidad predictiva no es muy buena, y existe gran variación en los resultados entre muestras.
 # 
@@ -593,17 +585,16 @@ printf("La exactitud de NNM para la red e Malaria es %s", accuracy) # [1] 0.7121
 
 # In[ ]:
 
-
-# defino los parametros del experimento
+# defino los parámetros del experimento
 
 # para cada grafo, sorteo un subgrafo observado, calculo todos los tipos de score, predigo aristas faltantes y evaluo la metrica
 p_v = c(0.01, 0.05, 0.10, 0.20, 0.50, 0.80) #las probabilidades de eliminacion de arista a evaluar
-n_sample = 10 #cantidad de sorteos de g_obs
+n_sample = 5 #cantidad de sorteos de g_obs
 metric="acc" #metric="auc" #metric="f"
 n_cores = 1 #la ejecución en COLAB solo permite 1 CPU
 
-# In[ ]:
 
+# In[ ]:
 
 #realizo los calculos para el grafo g_malaria
 

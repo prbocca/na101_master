@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+
 # coding: utf-8
 
 # # Práctico 5 - Cohesión y detección de comunidades en redes reales
@@ -21,9 +21,11 @@
 # Abrir el .r de la tarea en: https://github.com/prbocca/na101_master/tree/master/homework_5_communities
 
 # ## 1.c) Cargar Librerias
+# 
+# Todas las librerías debe instalarse correctamente, si el proceso se interrumpe o alguna librería da error en la instalación, entonces habrá problemas en el código más adelante. Si tiene este tipo de problemas pruebe hacer `Runtime -> Factory reset runtime`, y volver a intentar.
+# 
 
 # In[ ]:
-
 
 # cargar librerias
 load_libs <- function(libraries = libs, install=TRUE){
@@ -38,14 +40,14 @@ load_libs <- function(libraries = libs, install=TRUE){
 } 
 
 libs = c("network", "sna","rgexf","ape", 
-         "R.matlab", "sand","igraph","igraphdata") #procesamiento en paralelo
+         "R.matlab", "sand","igraph","igraphdata") 
 
 load_libs(libs)
+
 
 # ## 1.d) Descargar funciones auxiliares
 
 # In[ ]:
-
 
 #directorio donde se va a trabajar
 data_path = "/content/ar/hw5/"
@@ -58,12 +60,12 @@ list.files()
 # cargo funciones auxiliares
 source("https://raw.githubusercontent.com/prbocca/na101_master/master/homeworks_common.r")
 
+
 # # 2. Cohesión en grafos en `R`
 # 
 # Seguir la Secciones 4.3 del libro [SANDR], ejecutando el código fuente incluido.
 
 # In[ ]:
-
 
 #4.3 Characterizing Network Cohesion
 data(karate)
@@ -92,8 +94,8 @@ table(sapply(maximal.cliques(karate), length))
 
 # In[ ]:
 
-
 # representacion en k-core
+# esta es una forma relativamente común para visualizar grafos muy grandes (>10k nodos)
 cores <- graph.coreness(karate)
 A <- get.adjacency(karate, sparse=FALSE)
 library(network)
@@ -107,7 +109,6 @@ sna::gplot.target(g, cores,
 
 
 # In[ ]:
-
 
 # 4.3.2 Density and Related Notions of Relative Frequency
 # we see that the sub-graphs corresponding to each of the instructor and the administrator, in union with
@@ -131,8 +132,8 @@ data(aidsblog)
 reciprocity(aidsblog, mode="default") #[1] 0.03278689
 reciprocity(aidsblog, mode="ratio") #[1] 0.01666667
 
-# In[ ]:
 
+# In[ ]:
 
 # 4.3.3 Connectivity, Cuts, and Flows
 data(yeast)
@@ -175,6 +176,7 @@ table(aidsblog.scc$csize)
 # 1   4 
 # 142   1 
 
+
 # # 3. Particionar grafos en `R`. 
 # 
 # Seguir la secciones 4.4 al 4.6 del libro [SANDR], ejecutando el código fuente incluido.
@@ -182,7 +184,6 @@ table(aidsblog.scc$csize)
 # 
 
 # In[ ]:
-
 
 #4.4 Graph Partitioning
 #4.4.1 Hierarchical Clustering 
@@ -198,8 +199,8 @@ plot(kc, karate)
 #library(ape)
 dendPlot(kc, mode="phylo")
 
-# In[ ]:
 
+# In[ ]:
 
 # 4.4.2 Spectral Partitioning
 k.lap <- graph.laplacian(karate)
@@ -214,8 +215,8 @@ plot(f.vec, pch=16, xlab="Actor Number",
      ylab="Fiedler Vector Entry", col=f.colors)
 abline(0, 0, lwd=2, col="lightgray")
 
-# In[ ]:
 
+# In[ ]:
 
 # 4.4.3 Validation of Graph Partitioning
 func.class <- get.vertex.attribute(yeast.gc, "Class")
@@ -224,8 +225,8 @@ yc <- fastgreedy.community(yeast.gc)
 c.m <- membership(yc)
 table(c.m, func.class, useNA=c("no"))
 
-# In[ ]:
 
+# In[ ]:
 
 # 4.5 Assortativity and Mixing
 # The assortativity coefficient with categories
@@ -233,6 +234,7 @@ assortativity.nominal(yeast, (V(yeast)$Class=="P")+1, directed=FALSE) #[1] 0.496
 # assortativity mixing with continuos attributes (Pearson correlation coefficient)    
 
 assortativity.degree(yeast) #0.4610797
+
 
 # # 4. Particionar la red de blogs políticos de EE.UU.
 # 
@@ -262,7 +264,6 @@ assortativity.degree(yeast) #0.4610797
 
 # In[ ]:
 
-
 # download data
 download.file(url="https://github.com/prbocca/na101_master/raw/master/homework_5_communities/political_blogs.mat", destfile="political_blogs.mat", mode="wb")
 list.files()
@@ -272,7 +273,7 @@ A = NA
 nodes = NA
 ##################################################################
 #                       TU CÓDIGO ACÁ                           
-# Tip: -
+# Tip: cargar la matriz de adyacencia 'A', y el vector con datos de los nodos 'nodes'
 #
 #
 #
@@ -280,13 +281,16 @@ nodes = NA
 str(A)
 str(nodes)
 
+
 # Crear un grafo no dirigido a partir de los datos (matriz de adyacencia y afiliación). El resultaod debe ser similar al de la siguiente Figura: ![alt text](https://github.com/prbocca/na101_master/raw/master/homework_5_communities/political_blogs.png)
 # 
 
 # In[ ]:
 
+# La matriz original tiene algunos loops, no son de nuestro interés y los eliminamos
+diag(A) = 0
 
-# cargar el grafo no dirigido, g, con los datos de afinidad en en un atributo "nodes" de los vértices
+# cargar el grafo no dirigido, g, con los datos de afinidad en un atributo "nodes" de los vértices
 g = NA
 ##################################################################
 #                       TU CÓDIGO ACÁ                           
@@ -303,6 +307,7 @@ plot(g, edge.color="gray", edge.width=1, edge.lty=1, edge.arrow.size=.5,
      vertex.color=nodes, vertex.size=3, vertex.label=NA,
      layout=layout_components(g))
 
+
 # ## 4.b) Matriz de modularidad
 # 
 # Calcular el grado $d_v$ de todos los vértices $v\in V$ y el total de aristas $N_e$. Entonces calcular la matriz de modularidad $\bbB$ de la red. Comparar el resultado con el de la función `modularity_matrix()`.
@@ -310,9 +315,8 @@ plot(g, edge.color="gray", edge.width=1, edge.lty=1, edge.arrow.size=.5,
 
 # In[ ]:
 
-
-#numero de aristas dirigidas: 16718
-printf("El numero de aristas dirigidas es: %s", length(E(g)))
+#numero de aristas: 16715
+printf("El numero de aristas es: %s", length(E(g)))
 
 # calcular B
 B = NA
@@ -330,6 +334,7 @@ B2 = modularity_matrix(g, membership =rep(1,vcount(g)))
 str(B2)
 identical(B,B2)
 
+
 # ## 4.c) Particionado goloso
 # 
 # Realizar el particionado goloso rápido (clustering jerárquico aglomerativo) en varias comunidades (`fastgreedy.community()`).
@@ -338,26 +343,25 @@ identical(B,B2)
 
 # In[ ]:
 
-
 g.fg = fastgreedy.community(g, merges = T)
 
 printf("Se encontraron %s comunidades", length(g.fg))
 printf("La mayoría de las comunidades son muy pequeñas:")
 sizes(g.fg)
 
+
 # Dado que el metodo de particionado es jerárquico es posible definir la cantidad de comunidades que se quiere. Lamentablemente esto no siempre funciona, y este es el caso: no podemos particionar en dos usando este método. Ver el siguiente código.
 
 # In[ ]:
 
-
 cutat(g.fg, no=2) # no me deja partirlo en dos
+
 
 # Por tanto, voy a predecir la afiliación utilizando solo las dos comunidades más importantes. El resto de los vértices los dejo sin clasificar.
 # 
 # Para esto me creo la matriz de confusión entre la afiliación real y la predicha. Conocer más de la matriz de confusión en: https://es.wikipedia.org/wiki/Matriz_de_confusi%C3%B3n
 
 # In[ ]:
-
 
 # me creo la matriz de confusión entre la afiliación real (nodes), y la predicción (usando solo las dos comunidades mas importantes)
 g.fg.mem = membership(g.fg)
@@ -382,10 +386,10 @@ cm.fg
 printf("La exactitud del método es: %s", sum(diag(cm.fg))/sum(cm.fg)) #porcentaje de bien detectados 0.7583893
 # También se pudo calcular con sum(g.fg.t$Freq)/vcount(g)
 
+
 # Puedo volver a graficar la red, agregando la información de cuando no realizo una buena predicción (vértices cuadrados), con el objetivo de buscar algún patrón en el error.
 
 # In[ ]:
-
 
 # plot
 set.seed(1)
@@ -399,12 +403,12 @@ plot(g, edge.color="gray", edge.width=1, edge.lty=1, edge.arrow.size=.5,
 
 # se ve que principalmente los cuadrados estan afuera de la componente gigante 
 
+
 # ## 4.d) Particionado espectral
 # 
 # Realizar el particionado espectral (maximización espectral de modularidad) en varias comunidades (`leading.eigenvector.community()`).
 
 # In[ ]:
-
 
 g.part = NA
 ##################################################################
@@ -419,10 +423,10 @@ printf("Se encontraron %s comunidades", length(g.part))
 printf("La mayoría de las comunidades son muy pequeñas:")
 sizes(g.part)
 
-# ¿Es posible generar solo dos comunidades con este método?
+
+# Dado que el metodo de particionado es jerárquico es posible definir la cantidad de comunidades que se quiere. ¿Es posible generar solo dos comunidades con este método? 
 
 # In[ ]:
-
 
 ##################################################################
 #                       TU CÓDIGO ACÁ                           
@@ -432,12 +436,12 @@ sizes(g.part)
 #
 ##################################################################
 
+
 # Entonces, voy a predecir la afiliación utilizando solo las dos comunidades más importantes. El resto de los vértices los dejo sin clasificar.
 # 
 # Crear la matriz de confusión entre la afiliación real y la predicha. Y calcular la exactitud del método.
 
 # In[ ]:
-
 
 
 # calcular la matriz de confusión
@@ -459,7 +463,6 @@ printf("La exactitud del método es: %s", sum(diag(cm.part))/sum(cm.part)) #porc
 
 # In[ ]:
 
-
 # plot
 set.seed(1)
 shapes = rep("square",vcount(g)) #dibujo con cuadrado los que estan sin clasificiar o mal clasificados
@@ -472,12 +475,12 @@ plot(g, edge.color="gray", edge.width=1, edge.lty=1, edge.arrow.size=.5,
 
 # nuevamente se ve que los cuadrados estan principalmente afuera de la componente gigante
 
+
 # ## 4.e) Particionado espectral con matrices
 # 
 # ¿Cómo detectar solo dos comunidades con los resultados o funciones anteriores? Si no es posible, entonces implementar el algoritmo espectral de maximización de modularidad visto en teórico. Además, crear la matriz de confusión entre la afiliación real y la predicha. Y calcular la exactitud del método.
 
 # In[ ]:
-
 
 # crear el dataframe g.mymod.t, con misma estructura de los casos anteriores,
 # pero hacerlo calculando la modularidad aplicando el método de teórico
@@ -510,7 +513,6 @@ printf("La exactitud del método es: %s", sum(diag(cm.mymod))/sum(cm.mymod))  #p
 
 # In[ ]:
 
-
 # plot
 set.seed(1)
 shapes = rep("square",vcount(g)) #dibujo con cuadrado los que estan sin clasificiar o mal clasificados
@@ -523,14 +525,15 @@ plot(g, edge.color="gray", edge.width=1, edge.lty=1, edge.arrow.size=.5,
 
 #mejora visiblemente respecto a los anteriores
 
+
 # ## 4.f) Predicción de afinidad política.
 # 
 # Si usaramos los métodos anteriores para predecir la afinidad política. ¿Cuál sería el mejor método de acuerdo a la exactitud?
 
 # In[ ]:
 
-
 printf("La exactitud del método Goloso es: %s", sum(diag(cm.fg))/sum(cm.fg)) #porcentaje de bien detectados 0.7583893
 printf("La exactitud del método Particionado Espectral es: %s", sum(diag(cm.part))/sum(cm.part)) #porcentaje de bien detectados 0.772483221
 printf("La exactitud del método Particionado Espectral con matrices es: %s", sum(diag(cm.mymod))/sum(cm.mymod))  #porcentaje de bien detectados 0.8711409
 printf("El mejor método es el desarrollado por nosotros, el de maximizacion de modularidad: %s", sum(diag(cm.mymod))/sum(cm.mymod))
+

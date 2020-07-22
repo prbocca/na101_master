@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+
 # coding: utf-8
 
 # #1. Ambientes de trabajo
@@ -52,9 +52,10 @@
 # En esta primera ejecución se asignan los recursos. Además instalar las librerías lleva tiempo. Es de esperar que esto demore unos minutos.
 # 
 # Lamentablemente, el entorno de Colab se pierde luego de un tiempo de inactividad. Esto incluye que se deben volver a cargar las librerías y a descargar los datos (se borran todos los datos temporales).
+# 
+# Todas las librerías debe instalarse correctamente, si el proceso se interrumpe o alguna librería da error en la instalación, entonces habrá problemas en el código más adelante. Si tiene este tipo de problemas pruebe hacer `Runtime -> Factory reset runtime`, y volver a intentar.
 
 # In[ ]:
-
 
 # cargar librerias
 load_libs <- function(libraries = libs, install=TRUE){
@@ -72,12 +73,14 @@ libs = c("R.matlab", "sand","igraph","igraphdata") #procesamiento en paralelo
 
 load_libs(libs)
 
+
 # ## 1.d) Descargar funciones auxiliares
+# 
+# Para facilitar el trabajo a realizar en los prácticos, se ofrecen un conjunto de funciones auxiliares. El siguiente código carga dichas funciones.
 # 
 # Es necesario repetir esta tarea siempre que se inicia una ejecución.
 
 # In[ ]:
-
 
 #directorio donde se va a trabajar
 data_path = "/content/ar/hw1/"
@@ -90,6 +93,7 @@ list.files()
 # cargo funciones auxiliares
 source("https://raw.githubusercontent.com/prbocca/na101_master/master/homeworks_common.r")
 
+
 # # 2. Tutorial del lenguaje *R*
 # 
 # Es necesario conocer el lenguaje *R* para ganar fluidez en el práctico. Quien no conoce el lenguaje debe realizar algún tutorial rápido.
@@ -97,7 +101,6 @@ source("https://raw.githubusercontent.com/prbocca/na101_master/master/homeworks_
 # 
 
 # In[ ]:
-
 
 # lamentablemente el paquete tcltk de COLAB no permite interfaz interactiva, por lo que este tutorial solo anda localemente (en el ambiente RSTUDIO).
 library("tcltk")
@@ -117,7 +120,231 @@ if (interactive()){
 # 
 # Seguir el texto del Capítulo 2 del libro [SANDR], ejecutando el código fuente incluido. Utilizar el manual de referencia del paquete igraph para extender el conocimiento: http://igraph.org/r/doc/igraph.pdf
 # 
-# **TODO poner codigo fuente**
+# **Aquí se incluyen las celdas de código del libro, pero no su explicación. Entonces, es importante seguir la lectura del libro. Esta sección no será evaluada, sientase libre de cambiar y probar nuevos códigos para aprender.**
+# 
+# **Observación: algunos comandos han cambiado en las últimas versiones de igraph, aquí se incluye una actualización respecto al libro.**
+
+# In[ ]:
+
+g <- graph.formula(1-2, 1-3, 2-3, 2-4, 3-5, 4-5, 4-6, 4-7, 5-6, 6-7)
+
+
+# In[ ]:
+
+V(g)
+
+
+# In[ ]:
+
+E(g)
+
+
+# In[ ]:
+
+print_all(g)
+
+
+# In[ ]:
+
+plot(g)
+
+
+# In[ ]:
+
+dg <- graph.formula(1-+2, 1-+3, 2++3)
+plot(dg)
+
+
+# In[ ]:
+
+dg <- graph.formula(Sam-+Mary, Sam-+Tom, Mary++Tom)
+print_all(dg)
+
+
+# In[ ]:
+
+V(dg)$name <- c("Sam", "Mary", "Tom")
+
+
+# In[ ]:
+
+E(dg)
+
+
+# In[ ]:
+
+get.adjacency(g)
+
+
+# In[ ]:
+
+h <- induced.subgraph(g, 1:5)
+print_all(h)
+
+
+# In[ ]:
+
+h <- g - vertices(c(6,7))
+
+
+# In[ ]:
+
+h <- h + vertices(c(6,7))
+g <- h + edges(c(4,6),c(4,7),c(5,6),c(6,7))
+
+
+# In[ ]:
+
+h1 <- h
+h2 <- graph.formula(4-6, 4-7, 5-6, 6-7)
+g <- graph.union(h1,h2)
+
+
+# In[ ]:
+
+V(dg)$name
+
+
+# In[ ]:
+
+V(g)$color <- "red"
+
+
+# In[ ]:
+
+is.weighted(g)
+wg <- g
+E(wg)$weight <- runif(ecount(wg))
+is.weighted(wg)
+
+
+# In[ ]:
+
+g$name <- "Toy Graph"
+
+
+# In[ ]:
+
+g.lazega <- graph.data.frame(elist.lazega,
+                            directed="FALSE",
+                            vertices=v.attr.lazega)
+g.lazega$name <- "Lazega Lawyers"
+
+
+# In[ ]:
+
+vcount(g.lazega)
+
+
+# In[ ]:
+
+ecount(g.lazega)
+
+
+# In[ ]:
+
+list.vertex.attributes(g.lazega)
+
+
+# In[ ]:
+
+is.simple(g)
+
+
+# In[ ]:
+
+mg <- g + edge(2,3)
+print_all(mg)
+is.simple(mg)
+
+
+# In[ ]:
+
+E(mg)$weight <- 1
+wg2 <- simplify(mg)
+is.simple(wg2)
+
+
+# In[ ]:
+
+print_all(wg2)
+
+
+# In[ ]:
+
+E(wg2)$weight
+
+
+# In[ ]:
+
+neighbors(g, 5)
+
+
+# In[ ]:
+
+degree(g)
+
+
+# In[ ]:
+
+degree(dg, mode="in")
+degree(dg, mode="out")
+
+
+# In[ ]:
+
+is.connected(g)
+
+
+# In[ ]:
+
+clusters(g)
+
+
+# In[ ]:
+
+is.connected(dg, mode="weak")
+is.connected(dg, mode="strong")
+
+
+# In[ ]:
+
+diameter(g, weights=NA)
+
+
+# In[ ]:
+
+g.full <- graph.full(7)
+g.ring <- graph.ring(7)
+g.tree <- graph.tree(7, children=2, mode="undirected")
+g.star <- graph.star(7, mode="undirected")
+par(mfrow=c(2, 2))
+plot(g.full)
+plot(g.ring)
+plot(g.tree)
+plot(g.star)
+
+
+# In[ ]:
+
+is.dag(dg)
+
+
+# In[ ]:
+
+g.bip <- graph.formula(actor1:actor2:actor3,
+                       movie1:movie2, actor1:actor2 - movie1,
+                       actor2:actor3 - movie2)
+V(g.bip)$type <- grepl('^movie', V(g.bip)$name)
+print_all(g.bip, v=T)
+
+
+# In[ ]:
+
+proj <- bipartite.projection(g.bip)
+print_all(proj[[1]])
+print_all(proj[[2]])
+
 
 # # 4. Explorar una red de comunicaciones: emails de la empresa Enron
 # 
@@ -134,12 +361,12 @@ if (interactive()){
 
 # In[ ]:
 
-
 # load data
 download.file(url="https://github.com/prbocca/na101_master/blob/master/homework_1_graphs/Enron.zip?raw=true", destfile="Enron.zip", mode="wb")
 unzip(zipfile="Enron.zip")
 
 list.files()
+
 
 # $\newcommand   \ind   [1] {{\mathbb I \left\{#1\right\}  } }$
 # $\def\bbA{{\mathbf A}}$
@@ -156,7 +383,6 @@ list.files()
 
 # In[ ]:
 
-
 # cargo la matriz de correos enviados
 Y = readMat("Y.mat")$Y 
 str(Y)
@@ -165,19 +391,20 @@ str(Y)
 employees = NA
 ##################################################################
 #                       TU CÓDIGO ACÁ                           
-# Tip: usar readMat() y algunas funciones auxiliares para transformar el texto
+# Tip: usar readMat() y algunas funciones auxiliares para transformar el texto 
+#  y obtener un vector de strings (chr [1:184])
 #
 #
 #
 ##################################################################
 str(employees)
 
+
 # Construir la matriz binaria de adyacencia ${\mathbf A}\in\{0,1\}^{184\times184}$ que agrega todos los correos a lo largo del tiempo
 # (es decir, sumar $\underline{\mathbf Y}$ en la tercera dimension, y definir $[{\mathbf A}]_{ij}=\ind{\sum_{t=1}^{44}[\underline{\mathbf Y}]_{ijt}>0}$). 
 # 
 
 # In[ ]:
-
 
 # matriz de adyacencia con peso (cantidad de correos enviados en todos los meses)
 A_weight = rowSums(Y, na.rm = FALSE, dims = 2)
@@ -187,12 +414,12 @@ str(A_weight)
 A = ifelse(A_weight>0, 1, 0)
 str(A)
 
+
 # ## 4.b) Construir un grafo a partir de la matriz de adyacencia
 # 
 # Construir el grafo (con `igraph`) a partir de la matriz de adyacencia $\bbA$ y agregar los atributos de vértices del arreglo `employees`.
 
 # In[ ]:
-
 
 # podría construise usando la matriz de adyacencia binaria
 #   g = graph.adjacency(A)
@@ -203,14 +430,15 @@ V(g)$id = employees
 
 summary(g)
 
+
 # Más adelante veremos como graficar este grafo. Por ahora, la siguiente es una visualización sencilla.
 
 # In[ ]:
 
-
 plot(g, edge.color="gray", edge.width=1, edge.lty=1, edge.arrow.size=.5, 
      vertex.size=3, vertex.label=NA,
      layout=layout_nicely(g))
+
 
 # Ahora nos familiarizarnos con operaciones básicas sobre grafos.
 # 
@@ -225,7 +453,6 @@ plot(g, edge.color="gray", edge.width=1, edge.lty=1, edge.arrow.size=.5,
 
 # In[ ]:
 
-
 # numero de aristas dirigidas: 3007
 cant_aristadirigida_matriz = sum(A)
 printf("MATRIZ. las aristas dirigidas son: %s", cant_aristadirigida_matriz)
@@ -234,6 +461,7 @@ printf("MATRIZ. las aristas dirigidas son: %s", cant_aristadirigida_matriz)
 cant_aristadirigida_grafo = length(E(g))
 printf("GRAFO. las aristas dirigidas también las calculamos con: %s o con %s", cant_aristadirigida_grafo, ecount(g))
 
+
 # ## 4.d) Cantidad de aristas no dirigidas
 # 
 # Calcular la cantidad de aristas no dirigidas en la red (es decir, la cantidad de parejas únicas no ordenadas $(u,v)\in E$
@@ -241,7 +469,6 @@ printf("GRAFO. las aristas dirigidas también las calculamos con: %s o con %s", 
 # 
 
 # In[ ]:
-
 
 # con matrices
 #numero de aristas no dirigidas: 2097
@@ -268,7 +495,6 @@ printf("GRAFO. las aristas no dirigidas también las calculamos con: %s", cant_a
 # y $u,v\in V$). Esto significa que si existen ambas $(u,v)\in E$ y $(v,u)\in E$, debe contarse el par como mutual.
 
 # In[ ]:
-
 
 # con matrices
 cant_aristamutua_matriz = NA
@@ -299,7 +525,6 @@ printf("GRAFO. las aristas mutuas también las calculamos con: %s", cant_aristam
 
 # In[ ]:
 
-
 #find people not geting any email: 3
 # [1] "Vince Kaminski (j..kaminski) Manager Risk Management Head" "Mary Fischer (mary.fischer) Employee "                    
 # [3] "xxx Smith (m..smith) xxx " 
@@ -313,13 +538,13 @@ cant_notgetting_grafo = sum(degree(g, mode = "in")==0)
 printf("GRAFO. los empleados que no recibieron correo son: %s", cant_notgetting_grafo)
 V(g)$id[degree(g, mode = "in")==0]
 
+
 # ## 4.g) Empleados que no enviaron ningún correo
 # 
 # Calcular la cantidad de vértices con $d_v^{\text{out}}=0$, y listar los nombres de los empleados correspondientes. 
 # 
 
 # In[ ]:
-
 
 # con matrices
 cant_notsending_matriz = NA
@@ -348,7 +573,6 @@ printf("GRAFO. los empleados que no enviaron correo son: %s", cant_notsending_gr
 # Calcular la cantidad de empleados que fueron contactados por $30$ o más empleados.
 
 # In[ ]:
-
 
 # con matrices
 cant_indegree30_matriz = NA
@@ -379,7 +603,6 @@ printf("GRAFO. los contactados por al menos otros 30 empleados son: %s", cant_in
 
 # In[ ]:
 
-
 #con matrices
 cant_outdegree30_matriz = NA
 ##################################################################
@@ -409,7 +632,6 @@ printf("GRAFO. los que contactaron a al menos otros 30 empleados son: %s", cant_
 # 
 
 # In[ ]:
-
 
 #numero de triangulos dirigidos: 6819
 printf("MATRIZ. Cantidad de triángulos dirigidos son: %s", sum(diag(A %*% A %*% A/3)))
@@ -444,7 +666,6 @@ printf("GRAFO. Cantidad de triángulos no dirigidos son: %s", cant_triangnodirig
 
 # In[ ]:
 
-
 printf("GRAFO. Es débilmente conexo: %s", is.connected(g, mode = "weak"))
 printf("GRAFO. Es fuertemente conexo: %s", is.connected(g, mode = "strong"))
 
@@ -474,7 +695,6 @@ plot(g_gigante, edge.color="gray", edge.width=1, edge.lty=1, edge.arrow.size=.5,
 
 # In[ ]:
 
-
 #grabar els grafo G
 filename_g = "enron_g.pjk"
 ##################################################################
@@ -491,3 +711,4 @@ summary(g_copia)
 
 #son iguales?
 identical(g, g_copia)
+

@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+
 # coding: utf-8
 
 # # Práctico 4 - Medidas en redes sociales reales
@@ -12,7 +12,7 @@
 #      File-> Open Notebook -> Github -> https://github.com/prbocca/na101_master -> homework_4_measures
 # 3.   Guardar el notebook en su Google Drive:
 #      File -> Save a Copy in Drive... 
-# 4.   Renombrar el archivo `"cedula ID"_AR_hw1_IR.ipynb`, por ejemplo *33484022_AR_hw1_IR.ipynb*
+# 4.   Renombrar el archivo `"cedula ID"_AR_hw4_IR.ipynb`, por ejemplo *33484022_AR_hw4_IR.ipynb*
 # 5.   Al final usted deberá descargar el notebook. Asegurarse que se están guardando las salidas de ejecución en el notebook: File -> Download .ipynb
 # 6.   Luego estos archivos deberán ser enviados a prbocca@fing.edu.uy 
 # 
@@ -23,7 +23,6 @@
 # ## 1.c) Cargar Librerias
 
 # In[ ]:
-
 
 # cargar librerias
 load_libs <- function(libraries = libs, install=TRUE){
@@ -43,10 +42,10 @@ libs = c("network", "sna","rgexf",
 
 load_libs(libs)
 
+
 # ## 1.d) Descargar funciones auxiliares
 
 # In[ ]:
-
 
 #directorio donde se va a trabajar
 data_path = "/content/ar/hw4/"
@@ -59,13 +58,13 @@ list.files()
 # cargo funciones auxiliares
 source("https://raw.githubusercontent.com/prbocca/na101_master/master/homeworks_common.r")
 
+
 # # 2. Características de vértices y aristas
 # Características de vértices y aristas de un grafo en `R`. 
 # Seguir las secciones 4.1 y 4.2 del libro [SANDR], ejecutando el código fuente incluido. 
 # 
 
 # In[ ]:
-
 
 # 4.1 Introduction
 # 4.2 Vertex and Edge Characteristics
@@ -85,8 +84,8 @@ hist(degree(karate), col="lightblue", xlim=c(0, 50), xlab="Vertex Degree", ylab=
 # The previously observed distinction among the three groups of vertices is lost
 hist(graph.strength(karate), col="pink", xlab="Vertex Strength", ylab="Frequency", main="")
 
-# In[ ]:
 
+# In[ ]:
 
 # Degree distributions can exhibit a variety of shapes. For a network of interactions
 # among protein pairs in yeast, for next example, the shape is quite different from that of the karate club. In this case, 
@@ -117,8 +116,8 @@ plot(d.yeast, a.nn.deg.yeast, log="xy", col="goldenrod", xlab=c("Log Vertex Degr
 # suggests that while there is a tendency for vertices of higher degrees to link with similar vertices, 
 # vertices of lower degree tend to link with vertices of both lower and higher degrees.
 
-# In[ ]:
 
+# In[ ]:
 
 # 4.2.2 Vertex Centrality
 # An intuitively appealing way of displaying vertex centralities (for networks of small to moderate size) 
@@ -167,7 +166,6 @@ plot(aidsblog, layout=l, main="Authorities", vertex.label="",
 
 # In[ ]:
 
-
 # 4.2.3 Characterizing Edges
 # Using edge betweenness with the karate network and examining, for instance,
 # the edges with the three largest betweenness values
@@ -193,6 +191,7 @@ sna::closeness(g_karate_dual)
 sna::betweenness(g_karate_dual)
 sna::evcent(g_karate_dual)
 
+
 # # 3. Medidas en redes sociales reales.
 # 
 # Calcular e interpretar medidas de centralidad de vértice en redes sociales reales (Linkedin/Facebook/Twiiter, etc.).
@@ -205,22 +204,8 @@ sna::evcent(g_karate_dual)
 # Los datos también pueden descargarse en: 
 # https://raw.githubusercontent.com/prbocca/na101_master/master/homework_4_measures/Twitter_network_R.csv
 # 
-# 
-# Utilizando el paquete `igraph` calcular las métricas de centralidad: `degree(), closeness(), betweenness(), evcent(), page.rank()`, 
-# y comparar los tres usuarios con mayor centralidad para cada una de ellas.
-# El resultado debería ser el de la siguiente Tabla:
-# 
-# |metric|1|2|3|
-# |---|---|---|---|
-# | `degree()` |revodavid | cjbayesian | freakonometrics |
-# | `closeness()` |statbandit | cjbayesian | freakonometrics | 
-# | `betweenness()` |revodavid | hadleywickham | cjbayesian |
-# | `evcent()` | freakonometrics | revodavid | statsinthewild |
-# | `page.rank()` | isdotr | hadleywickham | revodavid |
-# 
 
 # In[ ]:
-
 
 # download data
 download.file(url="https://raw.githubusercontent.com/prbocca/na101_master/master/homework_4_measures/Twitter_network_R.csv", destfile="Twitter_network_R.csv", mode="wb")
@@ -233,8 +218,8 @@ datos <- read.csv("Twitter_network_R.csv")
 head(datos)
 unique(c(as.character(datos[,2]),as.character(datos[,1]))) # los usuarios unicos son 34
 
-# In[ ]:
 
+# In[ ]:
 
 # crea objeto de grafo 
 grafo = NA
@@ -252,13 +237,24 @@ plot(grafo,layout=layout.fruchterman.reingold, vertex.size=8,
      vertex.label.dist=0.4, vertex.color="red", edge.arrow.size=0.5)
 
 
-# In[ ]:
+# Utilizando el paquete `igraph` calcular las métricas de centralidad (considerando el grafo dirigido): `degree(), closeness(), betweenness(), evcent(), page.rank()`, 
+# y comparar los tres usuarios con mayor centralidad para cada una de ellas.
+# El resultado debería ser el de la siguiente Tabla:
+# 
+# |metric|1|2|3|
+# |---|---|---|---|
+# | `degree()` |revodavid | cjbayesian | freakonometrics |
+# | `closeness()` |statbandit | cjbayesian | freakonometrics | 
+# | `betweenness()` |revodavid | hadleywickham | cjbayesian |
+# | `evcent()` | freakonometrics | revodavid | statsinthewild |
+# | `page.rank()` | isdotr | hadleywickham | revodavid |
 
+# In[ ]:
 
 # calcular centralidades
 ##################################################################
 #                       TU CÓDIGO ACÁ                           
-# Tip: calcular centralidades sobre "grafo"
+# Tip: calcular centralidades: grado, cercanía, intermediación, vector propio, y pagerank sobre "grafo"
 #
 #
 #
@@ -294,26 +290,25 @@ plot(grafo,layout=layout.fruchterman.reingold, vertex.size=pr*100,
 
 # In[ ]:
 
-
-# download and liad data
+# download and load data
 tweets_df = NA
 ##################################################################
 #                       TU CÓDIGO ACÁ                           
-# Tip: similar a otras descargas
+# Tip: similar a otras descargas, cargar los tweets en el data.frame tweets_df
 #
 #
 #
 ##################################################################
 head(tweets_df)
 
+
 # 
 # ## 4.b) Tweets más populares
 # 
-# Ver los 5 tweets más populares (con más retweets) que no sean spam. Nota: el spam puede ser eliminado viendo los mensajes con más retweets (por ejemplo con más de 15000 retweets).
+# Ver los 5 tweets más populares (con más retweets) que no sean spam, ni retweets. Nota: el spam puede ser eliminado viendo los mensajes con más retweets (por ejemplo con más de 15000 retweets).
 # 
 
 # In[ ]:
-
 
 # select top retweeted tweets
 tweets_df = tweets_df[order(tweets_df$retweetCount, decreasing = TRUE),]
@@ -321,11 +316,11 @@ tweets_df$spam = (tweets_df$retweetCount >= 15000)  #supongo spam lo que tiene m
 tweets_df_filter = tweets_df[!tweets_df$spam,] #filtro el spam
 
 # Distribucion de retweets
-# mostrar el histograma de la cantidad de tweets  que tienen la misma cantidad de retweets. 
+# mostrar el histograma de la cantidad de tweets que tienen la misma cantidad de retweets. 
 # También puede mostrarse como tabla.
 ##################################################################
 #                       TU CÓDIGO ACÁ                           
-# Tip: usar tweets_df_filter
+# Tip: usar tweets_df_filter, y falta filtrar retweets
 #
 #
 #
@@ -350,12 +345,17 @@ tweets_df_filter = tweets_df[!tweets_df$spam,] #filtro el spam
 
 # In[ ]:
 
-
 # crear la red de retweets y guardarla en rt_top_graph
 rt_top_graph = NA
 ##################################################################
 #                       TU CÓDIGO ACÁ                           
-# Tip: crear un data.frame de quien retweetea a quien, yy luego crear grafo desde el data.frame 
+# Tip: crear un data.frame de quien retweetea a quien, 
+#  filtrar en ese data.frame los tweets con solo un retweet, y
+#  luego crear grafo desde el data.frame 
+#
+# Tip: el resultado es, summary(rt_top_graph):
+#   IGRAPH e7f1de6 DN-- 314 280 -- 
+#   + attr: name (v/c), n (e/n)
 #
 #
 #
@@ -372,6 +372,7 @@ plot(rt_top_graph, layout=glay, vertex.color="black", vertex.size=10, vertex.lab
 title("5000 last tweets on #Uruguay : Who retweets whom",
       cex.main=1, col.main="black") # add title
 
+
 # ## 4.d) Centralidad
 # 
 # Calcular las métricas de centralidad: `betweenness(), hub_score(), authority_score()` y comparar los cinco usuarios con mayor centralidad para cada una de ellas.  El resultado debería ser el de la siguiente Tabla
@@ -385,7 +386,6 @@ title("5000 last tweets on #Uruguay : Who retweets whom",
 # 
 
 # In[ ]:
-
 
 ##################################################################
 #                       TU CÓDIGO ACÁ                           
@@ -410,7 +410,6 @@ title("5000 last tweets on #Uruguay : Who retweets whom",
 
 # In[ ]:
 
-
 # Step 0: You need to use OAuth from Twitter
 # 1. Log into the Twitter Developers section Apply for a account in: https://developer.twitter.com/.
 # 2. Get Consumer Key & Consumer Secret, you have to create an app in Twitter via https://apps.twitter.com/app/new.
@@ -418,14 +417,23 @@ title("5000 last tweets on #Uruguay : Who retweets whom",
 
 # collect recent 5000 tweets of #Uruguay
 # you need to use your own key, which can be obtain from tweeter
+##################################################################
+#                       TU CÓDIGO ACÁ                           
+# Tip: copy and paste ;)
+#
+#
 api_key       = "paste here"
 api_secret    = "paste here"
 access_token  = "paste here"
 access_token_secret = "paste here"
+#
+##################################################################
 setup_twitter_oauth(api_key,api_secret,access_token,access_token_secret)
 
 my_tweets = searchTwitter("#Uruguay", n=5000, lang=NULL,since=NULL, until=NULL,locale=NULL, 
                           geocode=NULL, sinceID=NULL, maxID=NULL,resultType=NULL, retryOnRateLimit=120)
 my_tweets_df = twListToDF(my_tweets) # convert tweets to a data frame
 write.csv(my_tweets_df, "my_tweets_df.csv")
+
+head(my_tweets_df)
 
