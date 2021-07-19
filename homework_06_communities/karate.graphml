@@ -1,0 +1,451 @@
+<?xml version='1.0' encoding='utf-8'?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd"><key attr.name="weight" attr.type="double" for="edge" id="d7"/>
+<key attr.name="color" attr.type="double" for="node" id="d6"/>
+<key attr.name="label" attr.type="string" for="node" id="d5"/>
+<key attr.name="name" attr.type="string" for="node" id="d4"/>
+<key attr.name="Faction" attr.type="double" for="node" id="d3"/>
+<key attr.name="Author" attr.type="string" for="graph" id="d2"/>
+<key attr.name="Citation" attr.type="string" for="graph" id="d1"/>
+<key attr.name="name" attr.type="string" for="graph" id="d0"/>
+<graph edgedefault="undirected"><data key="d0">Zachary's karate club network</data>
+<data key="d1">Wayne W. Zachary. An Information Flow Model for Conflict and Fission in Small Groups. Journal of Anthropological Research Vol. 33, No. 4 452-473</data>
+<data key="d2">Wayne W. Zachary</data>
+<node id="n0">
+  <data key="d3">1.0</data>
+  <data key="d4">Mr Hi</data>
+  <data key="d5">H</data>
+  <data key="d6">1.0</data>
+</node>
+<node id="n1">
+  <data key="d3">1.0</data>
+  <data key="d4">Actor 2</data>
+  <data key="d5">2</data>
+  <data key="d6">1.0</data>
+</node>
+<node id="n2">
+  <data key="d3">1.0</data>
+  <data key="d4">Actor 3</data>
+  <data key="d5">3</data>
+  <data key="d6">1.0</data>
+</node>
+<node id="n3">
+  <data key="d3">1.0</data>
+  <data key="d4">Actor 4</data>
+  <data key="d5">4</data>
+  <data key="d6">1.0</data>
+</node>
+<node id="n4">
+  <data key="d3">1.0</data>
+  <data key="d4">Actor 5</data>
+  <data key="d5">5</data>
+  <data key="d6">1.0</data>
+</node>
+<node id="n5">
+  <data key="d3">1.0</data>
+  <data key="d4">Actor 6</data>
+  <data key="d5">6</data>
+  <data key="d6">1.0</data>
+</node>
+<node id="n6">
+  <data key="d3">1.0</data>
+  <data key="d4">Actor 7</data>
+  <data key="d5">7</data>
+  <data key="d6">1.0</data>
+</node>
+<node id="n7">
+  <data key="d3">1.0</data>
+  <data key="d4">Actor 8</data>
+  <data key="d5">8</data>
+  <data key="d6">1.0</data>
+</node>
+<node id="n8">
+  <data key="d3">2.0</data>
+  <data key="d4">Actor 9</data>
+  <data key="d5">9</data>
+  <data key="d6">2.0</data>
+</node>
+<node id="n9">
+  <data key="d3">2.0</data>
+  <data key="d4">Actor 10</data>
+  <data key="d5">10</data>
+  <data key="d6">2.0</data>
+</node>
+<node id="n10">
+  <data key="d3">1.0</data>
+  <data key="d4">Actor 11</data>
+  <data key="d5">11</data>
+  <data key="d6">1.0</data>
+</node>
+<node id="n11">
+  <data key="d3">1.0</data>
+  <data key="d4">Actor 12</data>
+  <data key="d5">12</data>
+  <data key="d6">1.0</data>
+</node>
+<node id="n12">
+  <data key="d3">1.0</data>
+  <data key="d4">Actor 13</data>
+  <data key="d5">13</data>
+  <data key="d6">1.0</data>
+</node>
+<node id="n13">
+  <data key="d3">1.0</data>
+  <data key="d4">Actor 14</data>
+  <data key="d5">14</data>
+  <data key="d6">1.0</data>
+</node>
+<node id="n14">
+  <data key="d3">2.0</data>
+  <data key="d4">Actor 15</data>
+  <data key="d5">15</data>
+  <data key="d6">2.0</data>
+</node>
+<node id="n15">
+  <data key="d3">2.0</data>
+  <data key="d4">Actor 16</data>
+  <data key="d5">16</data>
+  <data key="d6">2.0</data>
+</node>
+<node id="n16">
+  <data key="d3">1.0</data>
+  <data key="d4">Actor 17</data>
+  <data key="d5">17</data>
+  <data key="d6">1.0</data>
+</node>
+<node id="n17">
+  <data key="d3">1.0</data>
+  <data key="d4">Actor 18</data>
+  <data key="d5">18</data>
+  <data key="d6">1.0</data>
+</node>
+<node id="n18">
+  <data key="d3">2.0</data>
+  <data key="d4">Actor 19</data>
+  <data key="d5">19</data>
+  <data key="d6">2.0</data>
+</node>
+<node id="n19">
+  <data key="d3">1.0</data>
+  <data key="d4">Actor 20</data>
+  <data key="d5">20</data>
+  <data key="d6">1.0</data>
+</node>
+<node id="n20">
+  <data key="d3">2.0</data>
+  <data key="d4">Actor 21</data>
+  <data key="d5">21</data>
+  <data key="d6">2.0</data>
+</node>
+<node id="n21">
+  <data key="d3">1.0</data>
+  <data key="d4">Actor 22</data>
+  <data key="d5">22</data>
+  <data key="d6">1.0</data>
+</node>
+<node id="n22">
+  <data key="d3">2.0</data>
+  <data key="d4">Actor 23</data>
+  <data key="d5">23</data>
+  <data key="d6">2.0</data>
+</node>
+<node id="n23">
+  <data key="d3">2.0</data>
+  <data key="d4">Actor 24</data>
+  <data key="d5">24</data>
+  <data key="d6">2.0</data>
+</node>
+<node id="n24">
+  <data key="d3">2.0</data>
+  <data key="d4">Actor 25</data>
+  <data key="d5">25</data>
+  <data key="d6">2.0</data>
+</node>
+<node id="n25">
+  <data key="d3">2.0</data>
+  <data key="d4">Actor 26</data>
+  <data key="d5">26</data>
+  <data key="d6">2.0</data>
+</node>
+<node id="n26">
+  <data key="d3">2.0</data>
+  <data key="d4">Actor 27</data>
+  <data key="d5">27</data>
+  <data key="d6">2.0</data>
+</node>
+<node id="n27">
+  <data key="d3">2.0</data>
+  <data key="d4">Actor 28</data>
+  <data key="d5">28</data>
+  <data key="d6">2.0</data>
+</node>
+<node id="n28">
+  <data key="d3">2.0</data>
+  <data key="d4">Actor 29</data>
+  <data key="d5">29</data>
+  <data key="d6">2.0</data>
+</node>
+<node id="n29">
+  <data key="d3">2.0</data>
+  <data key="d4">Actor 30</data>
+  <data key="d5">30</data>
+  <data key="d6">2.0</data>
+</node>
+<node id="n30">
+  <data key="d3">2.0</data>
+  <data key="d4">Actor 31</data>
+  <data key="d5">31</data>
+  <data key="d6">2.0</data>
+</node>
+<node id="n31">
+  <data key="d3">2.0</data>
+  <data key="d4">Actor 32</data>
+  <data key="d5">32</data>
+  <data key="d6">2.0</data>
+</node>
+<node id="n32">
+  <data key="d3">2.0</data>
+  <data key="d4">Actor 33</data>
+  <data key="d5">33</data>
+  <data key="d6">2.0</data>
+</node>
+<node id="n33">
+  <data key="d3">2.0</data>
+  <data key="d4">John A</data>
+  <data key="d5">A</data>
+  <data key="d6">2.0</data>
+</node>
+<edge source="n0" target="n1">
+  <data key="d7">4.0</data>
+</edge>
+<edge source="n0" target="n2">
+  <data key="d7">5.0</data>
+</edge>
+<edge source="n0" target="n3">
+  <data key="d7">3.0</data>
+</edge>
+<edge source="n0" target="n4">
+  <data key="d7">3.0</data>
+</edge>
+<edge source="n0" target="n5">
+  <data key="d7">3.0</data>
+</edge>
+<edge source="n0" target="n6">
+  <data key="d7">3.0</data>
+</edge>
+<edge source="n0" target="n7">
+  <data key="d7">2.0</data>
+</edge>
+<edge source="n0" target="n8">
+  <data key="d7">2.0</data>
+</edge>
+<edge source="n0" target="n10">
+  <data key="d7">2.0</data>
+</edge>
+<edge source="n0" target="n11">
+  <data key="d7">3.0</data>
+</edge>
+<edge source="n0" target="n12">
+  <data key="d7">1.0</data>
+</edge>
+<edge source="n0" target="n13">
+  <data key="d7">3.0</data>
+</edge>
+<edge source="n0" target="n17">
+  <data key="d7">2.0</data>
+</edge>
+<edge source="n0" target="n19">
+  <data key="d7">2.0</data>
+</edge>
+<edge source="n0" target="n21">
+  <data key="d7">2.0</data>
+</edge>
+<edge source="n0" target="n31">
+  <data key="d7">2.0</data>
+</edge>
+<edge source="n1" target="n2">
+  <data key="d7">6.0</data>
+</edge>
+<edge source="n1" target="n3">
+  <data key="d7">3.0</data>
+</edge>
+<edge source="n1" target="n7">
+  <data key="d7">4.0</data>
+</edge>
+<edge source="n1" target="n13">
+  <data key="d7">5.0</data>
+</edge>
+<edge source="n1" target="n17">
+  <data key="d7">1.0</data>
+</edge>
+<edge source="n1" target="n19">
+  <data key="d7">2.0</data>
+</edge>
+<edge source="n1" target="n21">
+  <data key="d7">2.0</data>
+</edge>
+<edge source="n1" target="n30">
+  <data key="d7">2.0</data>
+</edge>
+<edge source="n2" target="n3">
+  <data key="d7">3.0</data>
+</edge>
+<edge source="n2" target="n7">
+  <data key="d7">4.0</data>
+</edge>
+<edge source="n2" target="n8">
+  <data key="d7">5.0</data>
+</edge>
+<edge source="n2" target="n9">
+  <data key="d7">1.0</data>
+</edge>
+<edge source="n2" target="n13">
+  <data key="d7">3.0</data>
+</edge>
+<edge source="n2" target="n27">
+  <data key="d7">2.0</data>
+</edge>
+<edge source="n2" target="n28">
+  <data key="d7">2.0</data>
+</edge>
+<edge source="n2" target="n32">
+  <data key="d7">2.0</data>
+</edge>
+<edge source="n3" target="n7">
+  <data key="d7">3.0</data>
+</edge>
+<edge source="n3" target="n12">
+  <data key="d7">3.0</data>
+</edge>
+<edge source="n3" target="n13">
+  <data key="d7">3.0</data>
+</edge>
+<edge source="n4" target="n6">
+  <data key="d7">2.0</data>
+</edge>
+<edge source="n4" target="n10">
+  <data key="d7">3.0</data>
+</edge>
+<edge source="n5" target="n6">
+  <data key="d7">5.0</data>
+</edge>
+<edge source="n5" target="n10">
+  <data key="d7">3.0</data>
+</edge>
+<edge source="n5" target="n16">
+  <data key="d7">3.0</data>
+</edge>
+<edge source="n6" target="n16">
+  <data key="d7">3.0</data>
+</edge>
+<edge source="n8" target="n30">
+  <data key="d7">3.0</data>
+</edge>
+<edge source="n8" target="n32">
+  <data key="d7">3.0</data>
+</edge>
+<edge source="n8" target="n33">
+  <data key="d7">4.0</data>
+</edge>
+<edge source="n9" target="n33">
+  <data key="d7">2.0</data>
+</edge>
+<edge source="n13" target="n33">
+  <data key="d7">3.0</data>
+</edge>
+<edge source="n14" target="n32">
+  <data key="d7">3.0</data>
+</edge>
+<edge source="n14" target="n33">
+  <data key="d7">2.0</data>
+</edge>
+<edge source="n15" target="n32">
+  <data key="d7">3.0</data>
+</edge>
+<edge source="n15" target="n33">
+  <data key="d7">4.0</data>
+</edge>
+<edge source="n18" target="n32">
+  <data key="d7">1.0</data>
+</edge>
+<edge source="n18" target="n33">
+  <data key="d7">2.0</data>
+</edge>
+<edge source="n19" target="n33">
+  <data key="d7">1.0</data>
+</edge>
+<edge source="n20" target="n32">
+  <data key="d7">3.0</data>
+</edge>
+<edge source="n20" target="n33">
+  <data key="d7">1.0</data>
+</edge>
+<edge source="n22" target="n32">
+  <data key="d7">2.0</data>
+</edge>
+<edge source="n22" target="n33">
+  <data key="d7">3.0</data>
+</edge>
+<edge source="n23" target="n25">
+  <data key="d7">5.0</data>
+</edge>
+<edge source="n23" target="n27">
+  <data key="d7">4.0</data>
+</edge>
+<edge source="n23" target="n29">
+  <data key="d7">3.0</data>
+</edge>
+<edge source="n23" target="n32">
+  <data key="d7">5.0</data>
+</edge>
+<edge source="n23" target="n33">
+  <data key="d7">4.0</data>
+</edge>
+<edge source="n24" target="n25">
+  <data key="d7">2.0</data>
+</edge>
+<edge source="n24" target="n27">
+  <data key="d7">3.0</data>
+</edge>
+<edge source="n24" target="n31">
+  <data key="d7">2.0</data>
+</edge>
+<edge source="n25" target="n31">
+  <data key="d7">7.0</data>
+</edge>
+<edge source="n26" target="n29">
+  <data key="d7">4.0</data>
+</edge>
+<edge source="n26" target="n33">
+  <data key="d7">2.0</data>
+</edge>
+<edge source="n27" target="n33">
+  <data key="d7">4.0</data>
+</edge>
+<edge source="n28" target="n31">
+  <data key="d7">2.0</data>
+</edge>
+<edge source="n28" target="n33">
+  <data key="d7">2.0</data>
+</edge>
+<edge source="n29" target="n32">
+  <data key="d7">4.0</data>
+</edge>
+<edge source="n29" target="n33">
+  <data key="d7">2.0</data>
+</edge>
+<edge source="n30" target="n32">
+  <data key="d7">3.0</data>
+</edge>
+<edge source="n30" target="n33">
+  <data key="d7">3.0</data>
+</edge>
+<edge source="n31" target="n32">
+  <data key="d7">4.0</data>
+</edge>
+<edge source="n31" target="n33">
+  <data key="d7">4.0</data>
+</edge>
+<edge source="n32" target="n33">
+  <data key="d7">5.0</data>
+</edge>
+</graph></graphml>
